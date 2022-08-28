@@ -1,9 +1,11 @@
 import { useFormik } from "formik";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import useLogin from "../hooks/useLogin";
 
 function Login() {
   const { login } = useLogin();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -16,6 +18,10 @@ function Login() {
   });
   return (
     <div class="max-w-screen-xl px-4 py-16 mx-auto sm:px-6 lg:px-8">
+      <div className="w-full max-w-md mx-auto flex flex-col items-center text-black text-xl">
+        <h3>email:test@gmail.com</h3>
+        <h3>password:123456</h3>
+      </div>
       <form
         onSubmit={formik.handleSubmit}
         class="max-w-md mx-auto mt-8 mb-0 space-y-4"

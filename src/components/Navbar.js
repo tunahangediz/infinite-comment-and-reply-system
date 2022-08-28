@@ -1,18 +1,20 @@
 import { async } from "@firebase/util";
 import { signOut } from "firebase/auth";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { authContext } from "../context/authContext/AuthContext";
 import { auth } from "../firebase/config";
 
-const handleLogout = async () => {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
 function Navbar() {
+  const { dispatch } = useContext(authContext);
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      dispatch({ type: "LOGOUT", payload: null });
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="w-full bg-indigo-600 py-2 mb-4">
       <nav className="max-w-4xl w-full flex mx-auto justify-between items-center text-white">

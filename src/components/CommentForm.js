@@ -6,12 +6,10 @@ import useFirestore from "../hooks/useFirestore";
 function CommentForm({ parent_id, setIsActive }) {
   const [value, setValue] = useState("");
   const { isPending, addDocument } = useFirestore("comments");
-
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     if (!auth.currentUser) {
       navigate("/login");
-      return;
     }
     e.preventDefault();
     const commentSchema = {
@@ -22,7 +20,9 @@ function CommentForm({ parent_id, setIsActive }) {
       likes: [],
       dislikes: [],
     };
-    setIsActive((prevState) => !prevState);
+    if (setIsActive) {
+      setIsActive((prevState) => !prevState);
+    }
     addDocument(commentSchema);
     setValue("");
   };
@@ -32,7 +32,7 @@ function CommentForm({ parent_id, setIsActive }) {
         <textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="w-full h-24 rounded-md"
+          className="w-full h-24 rounded-md py-2 px-4"
         ></textarea>
         <div className="flex w-full flex-row-reverse">
           <button className="bg-indigo-600 p-2 rounded-md text-white">
