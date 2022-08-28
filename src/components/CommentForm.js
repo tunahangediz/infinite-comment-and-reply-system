@@ -1,11 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
 import useFirestore from "../hooks/useFirestore";
 
 function CommentForm({ parent_id, setIsActive }) {
   const [value, setValue] = useState("");
   const { isPending, addDocument } = useFirestore("comments");
+
+  const navigate = useNavigate();
   const handleSubmit = (e) => {
+    if (!auth.currentUser) {
+      navigate("/login");
+      return;
+    }
     e.preventDefault();
     const commentSchema = {
       content: value,
@@ -20,14 +27,18 @@ function CommentForm({ parent_id, setIsActive }) {
     setValue("");
   };
   return (
-    <div className="max-w-[35rem]  w-full mx-auto">
+    <div className="max-w-[35rem]  w-full mx-auto pb-2">
       <form onSubmit={handleSubmit}>
         <textarea
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="w-full h-24"
+          className="w-full h-24 rounded-md"
         ></textarea>
-        <button className="bg-purple-500 p-2 rounded-md">submit</button>
+        <div className="flex w-full flex-row-reverse">
+          <button className="bg-indigo-600 p-2 rounded-md text-white">
+            submit
+          </button>
+        </div>
       </form>
     </div>
   );

@@ -94,7 +94,7 @@ function Comment({ comment, parentName }) {
                   <p className="font-semibold">
                     {comment.author.split("@")[0]}{" "}
                   </p>
-                  {auth.currentUser.uid == comment.uid && (
+                  {auth.currentUser && auth.currentUser.uid == comment.uid && (
                     <strong className="p-1 bg-blue-800 text-white text-xs">
                       YOU
                     </strong>
@@ -103,7 +103,7 @@ function Comment({ comment, parentName }) {
               </div>
               <div className="flex gap-2">
                 {/* when current user is author of comment it can remove or edit the comment*/}
-                {auth.currentUser.uid == comment.uid && (
+                {auth.currentUser && auth.currentUser.uid == comment.uid && (
                   <div className="flex gap-2 text-[10px]">
                     <div
                       onClick={deleteComment}
