@@ -68,8 +68,15 @@ function Comment({ comment, parentName }) {
     await deleteDoc(docRef);
   };
   return (
-    <div className=" flex flex-col max-w-[35rem] w-full mx-auto items-end ">
-      <div className="w-full">
+    <div
+      className={
+        "flex flex-col max-w-[35rem] w-full mx-auto items-end relative"
+      }
+    >
+      {parentName && (
+        <div className="border-l-[3px] border-gray-300 h-[90%]  absolute -left-10"></div>
+      )}
+      <div className={"w-full"}>
         <div className="  rounded-md mb-4  bg-white  p-4 min-h-[100px] h-full flex  ">
           <div className=" mr-4 w-10 h-20 rounded text-indigo-400 bg-indigo-100 font-semibold flex flex-col items-center justify-around py-2 ">
             <button onClick={increaseLike}>
